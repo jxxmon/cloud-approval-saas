@@ -23,6 +23,7 @@ services:
     # 개발 환경
     environment:
       - NODE_ENV=production
+      - BROWSER=none
     # environment:
     #   - NODE_ENV=production
 
