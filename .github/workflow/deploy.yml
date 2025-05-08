@@ -1,0 +1,28 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main  # main 브랜치에 푸시될 때 작동
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # GitHub에서 사용할 실행 환경
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # 현재 레포지토리의 코드를 가져옵니다
+
+    - name: Set up SSH agent
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}  # GitHub에 저장한 SSH 개인키
+
+    - name: Deploy via SSH
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          cd /app/cloud-approval-saas  # EC2에서 프로젝트 위치
+          git pull origin main
+          docker-compose down
+          docker-compose up --build -d
+        EOF

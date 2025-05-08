@@ -18,6 +18,8 @@ services:
       - ./frontend:/app
     stdin_open: true
     tty: true
+    environment:
+      - BROWSER=none
   db:
     image: postgres:15
     environment:

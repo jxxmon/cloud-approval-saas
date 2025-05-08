@@ -11,10 +11,10 @@ function ApprovalCreate({ onCreated }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/user/', { withCredentials: true })
+    axios.get(`${process.env.REACT_APP_API_BASE}/user/`, { withCredentials: true })
       .then(res => setRequester(res.data.id))
       .catch(() => setRequester(''));
-    axios.get('http://localhost:8000/api/users/', { withCredentials: true })
+    axios.get(`${process.env.REACT_APP_API_BASE}/users/`, { withCredentials: true })
       .then(res => setUsers(res.data))
       .catch(() => setUsers([]));
   }, []);

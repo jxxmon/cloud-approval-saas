@@ -6,3 +6,6 @@ COPY requirements.txt /app/
 RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . /app/
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+# 개발: COPY .env.development .env
+# 운영: COPY .env.production .env
