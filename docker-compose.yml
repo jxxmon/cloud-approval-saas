@@ -23,7 +23,6 @@ services:
     # 개발 환경
     environment:
       - NODE_ENV=development
-    # 운영 환경 예시 (docker-compose.prod.yml에서 사용)
     # environment:
     #   - NODE_ENV=production
 
