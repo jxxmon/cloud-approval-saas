@@ -171,3 +171,7 @@ cython_debug/
 
 # env
 backend/.env
+frontend/.env
+
+#node_modules
+frontend/node_modules

@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    stdin_open: true
+    tty: true
+    # 개발 환경
+    environment:
+      - NODE_ENV=production
+    # 운영 환경 예시 (docker-compose.prod.yml에서 사용)
+    # environment:
+    #   - NODE_ENV=production
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: approval_db
+      POSTGRES_USER: approval_user
+      POSTGRES_PASSWORD: approval_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

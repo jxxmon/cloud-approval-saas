@@ -1,3 +1,5 @@
+# 이 파일은 더 이상 사용하지 않습니다. settings/base.py, development.py, production.py를 참고하세요.
+
 """
 Django settings for config project.
 
@@ -16,6 +18,13 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+settings_module = os.environ.get('DJANGO_SETTINGS_MODULE', 'config.settings.development')
+if settings_module != 'config.settings':
+    from importlib import import_module
+    module = import_module(settings_module)
+    for setting in dir(module):
+        if setting.isupper():
+            globals()[setting] = getattr(module, setting)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -26,7 +35,7 @@ SECRET_KEY = 'django-insecure-+^fh)a9wr3(in&eqpo1=87)qpyb4r=n5bzospx0^6ov8cgp&qx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -125,10 +134,16 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_CORS_ALLOWED_ORIGINS', '').split(',')
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+]
 CORS_ALLOW_CREDENTIALS = True
 
-CSRF_TRUSTED_ORIGINS = os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', '').split(',')
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+]
 
 
 # Django REST Framework 기본 설정

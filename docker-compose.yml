@@ -10,6 +10,8 @@ services:
       - ./backend/.env
     depends_on:
       - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.development
   frontend:
     build: ./frontend
     ports:
@@ -18,8 +20,13 @@ services:
       - ./frontend:/app
     stdin_open: true
     tty: true
+    # 개발 환경
     environment:
-      - BROWSER=none
+      - NODE_ENV=development
+    # 운영 환경 예시 (docker-compose.prod.yml에서 사용)
+    # environment:
+    #   - NODE_ENV=production
+
   db:
     image: postgres:15
     environment:

@@ -26,7 +26,7 @@ function ApprovalDetail({ id, onBack }) {
   // PDF 다운로드 버튼 클릭 시 호출되는 함수
   // 결재의 PDF 파일을 새 창에서 다운로드합니다.
   const handleDownloadPDF = () => {
-    window.open(`${process.env.REACT_APP_PDF_BASE}/${approval.id}/generate-pdf/`, '_blank');
+    window.open(`http://localhost:8000/api/approvals/${approval.id}/generate-pdf/`, '_blank');
   };
 
   if (error) return <div>{error}</div>;
