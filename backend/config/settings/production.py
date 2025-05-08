@@ -11,3 +11,6 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = [
     "http://52.79.217.2:3000",
 ]
+
+import os
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
